@@ -1,9 +1,8 @@
-// app/pool/page.tsx
-
 'use client';
 
 import { useEffect, useState } from 'react';
 import ContractForm from '../../components/ContractForm';
+import { scoreContract } from '../../lib/contractScore';
 
 type Fighter = {
   name: string;
@@ -16,6 +15,8 @@ type Fighter = {
 export default function PoolPage() {
   const [fighters, setFighters] = useState<Fighter[]>([]);
   const [selectedFighter, setSelectedFighter] = useState<string | null>(null);
+  const [submittedOffers, setSubmittedOffers] = useState<any[]>([]);
+  const [signedFighters, setSignedFighters] = useState<any[]>([]);
 
   useEffect(() => {
     fetch('/data/pool-week-01.json')
@@ -31,8 +32,22 @@ export default function PoolPage() {
   }, []);
 
   const handleOffer = (data: any) => {
-    console.log('Submitted Offer:', data);
+    setSubmittedOffers(prev => [...prev, data]);
     setSelectedFighter(null);
+  };
+
+  const resolveContracts = () => {
+    const bestOffers: Record<string, any> = {};
+
+    submittedOffers.forEach(offer => {
+      const score = scoreContract(offer);
+      if (!bestOffers[offer.fighterName] || score > scoreContract(bestOffers[offer.fighterName])) {
+        bestOffers[offer.fighterName] = offer;
+      }
+    });
+
+    const signed = Object.values(bestOffers);
+    setSignedFighters(signed);
   };
 
   return (
@@ -59,6 +74,38 @@ export default function PoolPage() {
           </div>
         ))}
       </div>
+
+      {submittedOffers.length > 0 && (
+        <section className="mt-8">
+          <h2 className="text-xl font-bold mb-2">📋 Submitted Offers</h2>
+          <ul className="list-disc ml-6 text-sm">
+            {submittedOffers.map((offer, idx) => (
+              <li key={idx}>
+                {offer.fighterName} — ${offer.basePay} + ${offer.bonus} ({offer.role})
+              </li>
+            ))}
+          </ul>
+          <button
+            onClick={resolveContracts}
+            className="mt-4 px-4 py-2 bg-green-700 text-white rounded text-sm"
+          >
+            Resolve Contracts
+          </button>
+        </section>
+      )}
+
+      {signedFighters.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-xl font-bold mb-2">✅ Signed Fighters</h2>
+          <ul className="list-disc ml-6 text-sm">
+            {signedFighters.map((fighter, idx) => (
+              <li key={idx}>
+                {fighter.fighterName} — {fighter.role} — ${fighter.basePay}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </main>
   );
 }
