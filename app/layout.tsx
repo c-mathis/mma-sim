@@ -1,3 +1,5 @@
+import './globals.css'
+
 export const metadata = {
   title: 'MMA Sim - Professional Fight Management',
   description: 'Manage your MMA organization with realistic fight simulation',
