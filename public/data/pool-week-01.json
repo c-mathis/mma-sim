@@ -1,0 +1,7 @@
+[
+  { "name": "Sean Strickland", "weightClass": 185, "hype": 78, "record": "28-5", "status": "Available" },
+  { "name": "Bo Nickal", "weightClass": 185, "hype": 72, "record": "5-0", "status": "Prospect" },
+  { "name": "Dustin Poirier", "weightClass": 155, "hype": 88, "record": "29-8", "status": "Main Event Only" },
+  { "name": "Max Holloway", "weightClass": 145, "hype": 90, "record": "25-7", "status": "Available" },
+  { "name": "Khamzat Chimaev", "weightClass": 185, "hype": 92, "record": "13-0", "status": "Available" }
+]

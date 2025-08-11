@@ -1,0 +1,7 @@
+[
+  { "name": "Justin Gaethje", "weightClass": 155, "hype": 89, "record": "25-5", "status": "Available" },
+  { "name": "Islam Makhachev", "weightClass": 155, "hype": 95, "record": "26-1", "status": "Available" },
+  { "name": "Alex Pereira", "weightClass": 205, "hype": 94, "record": "11-2", "status": "Available" },
+  { "name": "Ilia Topuria", "weightClass": 145, "hype": 92, "record": "15-0", "status": "Available" },
+  { "name": "Belal Muhammad", "weightClass": 170, "hype": 84, "record": "24-3", "status": "Main Event Only" }
+]
